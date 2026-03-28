@@ -10,12 +10,12 @@ const iconMap = {
 };
 
 const activityIcons = {
-  lead: { icon: UserPlus, color: 'text-blue-500', bg: 'bg-blue-100' },
-  quotation: { icon: FileText, color: 'text-purple-500', bg: 'bg-purple-100' },
-  conversion: { icon: TrendingUp, color: 'text-emerald-500', bg: 'bg-emerald-100' },
-  followup: { icon: Phone, color: 'text-amber-500', bg: 'bg-amber-100' },
-  ai: { icon: Bot, color: 'text-indigo-500', bg: 'bg-indigo-100' },
-  pipeline: { icon: ArrowRight, color: 'text-cyan-500', bg: 'bg-cyan-100' },
+  lead: { icon: UserPlus, color: 'text-primary-400', bg: 'bg-primary-50' },
+  quotation: { icon: FileText, color: 'text-violet-400', bg: 'bg-violet-50' },
+  conversion: { icon: TrendingUp, color: 'text-accent-400', bg: 'bg-accent-50' },
+  followup: { icon: Phone, color: 'text-warning-400', bg: 'bg-warning-50' },
+  ai: { icon: Bot, color: 'text-primary-300', bg: 'bg-primary-50' },
+  pipeline: { icon: ArrowRight, color: 'text-teal-400', bg: 'bg-teal-50' },
 };
 
 export default function Dashboard() {
@@ -40,6 +40,8 @@ export default function Dashboard() {
               changeType={stat.changeType}
               gradient={stat.gradient}
               icon={iconMap[iconKey]}
+              iconColor={stat.iconColor}
+              iconBg={stat.iconBg}
             />
           );
         })}
@@ -71,12 +73,12 @@ export default function Dashboard() {
                   <div key={item.month} className="flex flex-1 flex-col items-center gap-2">
                     <div className="flex w-full items-end justify-center gap-1" style={{ height: '200px' }}>
                       <div
-                        className="w-5 rounded-t-md bg-gradient-to-t from-primary-600 to-primary-400 transition-all duration-500"
+                        className="w-5 rounded-t-md bg-linear-to-t from-primary-400 to-primary-200 transition-all duration-500"
                         style={{ height: `${leadHeight}%` }}
                         title={`Leads: ${item.leads}`}
                       />
                       <div
-                        className="w-5 rounded-t-md bg-gradient-to-t from-emerald-600 to-emerald-400 transition-all duration-500"
+                        className="w-5 rounded-t-md bg-linear-to-t from-accent-400 to-accent-100 transition-all duration-500"
                         style={{ height: `${convertedHeight}%` }}
                         title={`Converted: ${item.converted}`}
                       />
@@ -88,11 +90,11 @@ export default function Dashboard() {
             </div>
             <div className="mt-4 flex items-center justify-center gap-6">
               <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded-sm bg-primary-500" />
+                <div className="h-3 w-3 rounded-sm bg-primary-300" />
                 <span className="text-xs text-surface-muted">Total Leads</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded-sm bg-emerald-500" />
+                <div className="h-3 w-3 rounded-sm bg-accent-400" />
                 <span className="text-xs text-surface-muted">Converted</span>
               </div>
             </div>
@@ -136,14 +138,14 @@ export default function Dashboard() {
                 key={activity.id}
                 className="group flex items-start gap-4 rounded-xl p-3 transition-colors duration-200 hover:bg-surface-bg"
               >
-                <div className={`mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl ${bg}`}>
+                <div className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${bg}`}>
                   <ActivityIcon className={`h-4 w-4 ${color}`} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-secondary-900">{activity.action}</p>
                   <p className="text-sm text-surface-muted">{activity.description}</p>
                 </div>
-                <span className="flex-shrink-0 text-xs text-surface-muted">{activity.time}</span>
+                <span className="shrink-0 text-xs text-surface-muted">{activity.time}</span>
               </div>
             );
           })}

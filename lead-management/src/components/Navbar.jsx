@@ -35,8 +35,8 @@ export default function Navbar() {
           >
             <Bell className="h-5 w-5" />
             <span className="absolute right-1.5 top-1.5 flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-error-500 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-error-500" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-error-400 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-error-400" />
             </span>
           </button>
 
@@ -48,7 +48,7 @@ export default function Navbar() {
               <div className="max-h-80 overflow-y-auto">
                 {notifications.map((n) => (
                   <div key={n.id} className={`flex items-start gap-3 px-4 py-3 transition-colors hover:bg-surface-bg ${n.unread ? 'bg-primary-50/50' : ''}`}>
-                    <div className={`mt-1 h-2 w-2 flex-shrink-0 rounded-full ${n.unread ? 'bg-primary-500' : 'bg-transparent'}`} />
+                    <div className={`mt-1 h-2 w-2 shrink-0 rounded-full ${n.unread ? 'bg-primary-400' : 'bg-transparent'}`} />
                     <div>
                       <p className="text-sm text-secondary-900">{n.text}</p>
                       <p className="mt-0.5 text-xs text-surface-muted">{n.time}</p>
@@ -71,7 +71,7 @@ export default function Navbar() {
             onClick={() => { setShowProfile(!showProfile); setShowNotifications(false); }}
             className="flex items-center gap-2 rounded-xl p-1.5 transition-all duration-200 hover:bg-surface-bg"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary-600 to-indigo-600 text-sm font-bold text-white">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-50 border border-primary-100 text-sm font-bold text-primary-600">
               PS
             </div>
             <div className="hidden text-left sm:block">

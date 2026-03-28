@@ -32,8 +32,8 @@ export default function Sidebar() {
     >
       {/* Logo */}
       <div className="flex h-16 items-center gap-3 border-b border-surface-border px-4">
-        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary-600 to-indigo-600 shadow-lg shadow-primary-500/30">
-          <Zap className="h-5 w-5 text-white" />
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 border border-primary-100">
+          <Zap className="h-5 w-5 text-primary-500" />
         </div>
         {!collapsed && (
           <div className="overflow-hidden">
@@ -54,16 +54,16 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 `group flex items-center gap-3 rounded-xl px-3 py-2.5 font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-gradient-to-r from-primary-600 to-indigo-600 text-white shadow-md shadow-primary-500/25'
-                    : 'text-surface-muted hover:bg-surface-bg hover:text-secondary-900'
+                    ? 'bg-primary-50 text-primary-600 border border-primary-100'
+                    : 'text-surface-muted hover:bg-surface-bg hover:text-secondary-800'
                 } ${collapsed ? 'justify-center' : ''}`
               }
             >
               {({ isActive }) => (
                 <>
                   <item.icon
-                    className={`h-5 w-5 flex-shrink-0 ${
-                      isActive ? 'text-white' : 'text-surface-muted group-hover:text-primary-600'
+                    className={`h-5 w-5 shrink-0 ${
+                      isActive ? 'text-primary-500' : 'text-surface-muted group-hover:text-primary-400'
                     }`}
                   />
                   {!collapsed && <span className="text-sm">{item.label}</span>}

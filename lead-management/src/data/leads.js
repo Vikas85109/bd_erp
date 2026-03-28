@@ -167,24 +167,24 @@ export const leadSources = ['Website', 'Email', 'WhatsApp', 'Phone', 'Referral',
 
 export const getStatusColor = (status) => {
   const colors = {
-    New: { bg: 'bg-blue-100', text: 'text-blue-700', dot: 'bg-blue-500' },
-    Contacted: { bg: 'bg-amber-100', text: 'text-amber-700', dot: 'bg-amber-500' },
-    Qualified: { bg: 'bg-purple-100', text: 'text-purple-700', dot: 'bg-purple-500' },
-    Proposal: { bg: 'bg-indigo-100', text: 'text-indigo-700', dot: 'bg-indigo-500' },
-    Converted: { bg: 'bg-emerald-100', text: 'text-emerald-700', dot: 'bg-emerald-500' },
-    Lost: { bg: 'bg-red-100', text: 'text-red-700', dot: 'bg-red-500' },
+    New: { bg: 'bg-primary-50', text: 'text-primary-500', dot: 'bg-primary-400' },
+    Contacted: { bg: 'bg-amber-50', text: 'text-amber-500', dot: 'bg-amber-400' },
+    Qualified: { bg: 'bg-violet-50', text: 'text-violet-500', dot: 'bg-violet-400' },
+    Proposal: { bg: 'bg-sky-50', text: 'text-sky-500', dot: 'bg-sky-400' },
+    Converted: { bg: 'bg-accent-50', text: 'text-accent-500', dot: 'bg-accent-400' },
+    Lost: { bg: 'bg-error-50', text: 'text-error-400', dot: 'bg-error-400' },
   };
   return colors[status] || colors.New;
 };
 
 export const getSourceColor = (source) => {
   const colors = {
-    Website: { bg: 'bg-sky-100', text: 'text-sky-700' },
-    Email: { bg: 'bg-violet-100', text: 'text-violet-700' },
-    WhatsApp: { bg: 'bg-green-100', text: 'text-green-700' },
-    Phone: { bg: 'bg-orange-100', text: 'text-orange-700' },
-    Referral: { bg: 'bg-pink-100', text: 'text-pink-700' },
-    'Social Media': { bg: 'bg-cyan-100', text: 'text-cyan-700' },
+    Website: { bg: 'bg-sky-50', text: 'text-sky-500' },
+    Email: { bg: 'bg-violet-50', text: 'text-violet-500' },
+    WhatsApp: { bg: 'bg-emerald-50', text: 'text-emerald-500' },
+    Phone: { bg: 'bg-orange-50', text: 'text-orange-400' },
+    Referral: { bg: 'bg-pink-50', text: 'text-pink-400' },
+    'Social Media': { bg: 'bg-cyan-50', text: 'text-cyan-500' },
   };
   return colors[source] || colors.Website;
 };

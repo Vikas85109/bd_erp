@@ -27,7 +27,7 @@ export default function FollowUps() {
           <h1 className="text-2xl font-bold text-secondary-900">Follow-ups</h1>
           <p className="mt-1 text-sm text-surface-muted">Track and manage your follow-up tasks</p>
         </div>
-        <button className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/25 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+        <button className="flex items-center gap-2 rounded-xl bg-primary-500 hover:bg-primary-600 px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/15 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
           <Plus className="h-4 w-4" />
           Add Follow-up
         </button>
@@ -37,8 +37,8 @@ export default function FollowUps() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded-2xl bg-white p-5 shadow-md">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
-              <CalendarCheck className="h-5 w-5 text-amber-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-warning-50">
+              <CalendarCheck className="h-5 w-5 text-warning-400" />
             </div>
             <div>
               <p className="text-2xl font-bold text-secondary-900">{pendingCount}</p>
@@ -48,8 +48,8 @@ export default function FollowUps() {
         </div>
         <div className="rounded-2xl bg-white p-5 shadow-md">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-100">
-              <CalendarCheck className="h-5 w-5 text-red-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-error-50">
+              <CalendarCheck className="h-5 w-5 text-error-400" />
             </div>
             <div>
               <p className="text-2xl font-bold text-secondary-900">{todayCount}</p>
@@ -59,8 +59,8 @@ export default function FollowUps() {
         </div>
         <div className="rounded-2xl bg-white p-5 shadow-md">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
-              <CalendarCheck className="h-5 w-5 text-emerald-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-50">
+              <CalendarCheck className="h-5 w-5 text-accent-400" />
             </div>
             <div>
               <p className="text-2xl font-bold text-secondary-900">{followups.length - pendingCount}</p>
@@ -80,7 +80,7 @@ export default function FollowUps() {
               key={f}
               onClick={() => setFilter(f)}
               className={`rounded-lg px-3 py-1.5 text-xs font-medium capitalize transition-all duration-200 ${
-                filter === f ? 'bg-primary-600 text-white shadow-sm' : 'bg-surface-bg text-surface-muted hover:bg-gray-200'
+                filter === f ? 'bg-primary-50 text-primary-600 border border-primary-100' : 'bg-surface-bg text-surface-muted hover:bg-gray-200'
               }`}
             >
               {f}
@@ -95,7 +95,7 @@ export default function FollowUps() {
               key={p}
               onClick={() => setPriorityFilter(p)}
               className={`rounded-lg px-3 py-1.5 text-xs font-medium capitalize transition-all duration-200 ${
-                priorityFilter === p ? 'bg-primary-600 text-white shadow-sm' : 'bg-surface-bg text-surface-muted hover:bg-gray-200'
+                priorityFilter === p ? 'bg-primary-50 text-primary-600 border border-primary-100' : 'bg-surface-bg text-surface-muted hover:bg-gray-200'
               }`}
             >
               {p}

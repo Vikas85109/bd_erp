@@ -31,12 +31,12 @@ export default function KanbanColumn({ stage }) {
                 <h4 className="font-semibold text-secondary-900">{lead.name}</h4>
                 <p className="text-sm text-surface-muted">{lead.company}</p>
               </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-700 text-xs font-bold text-white">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-50 border border-primary-100 text-xs font-bold text-primary-500">
                 {lead.name.split(' ').map((n) => n[0]).join('')}
               </div>
             </div>
             <div className="mt-3 flex items-center justify-between">
-              <span className="text-sm font-semibold text-primary-700">{formatCurrency(lead.value)}</span>
+              <span className="text-sm font-semibold text-primary-500">{formatCurrency(lead.value)}</span>
               <span className="text-xs text-surface-muted">{lead.daysInStage}d in stage</span>
             </div>
           </div>

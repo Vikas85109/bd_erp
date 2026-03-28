@@ -68,8 +68,8 @@ export default function DataTable({ data, onRowClick }) {
                 onClick={() => setStatusFilter(status)}
                 className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
                   statusFilter === status
-                    ? 'bg-primary-600 text-white shadow-sm'
-                    : 'bg-surface-bg text-surface-muted hover:bg-gray-200'
+                    ? 'bg-primary-50 text-primary-600 border border-primary-100'
+                    : 'bg-surface-bg text-surface-muted hover:bg-gray-100'
                 }`}
               >
                 {status}
@@ -128,7 +128,7 @@ export default function DataTable({ data, onRowClick }) {
               >
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-700 text-sm font-semibold text-white">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-50 border border-primary-100 text-sm font-semibold text-primary-600">
                       {lead.name.split(' ').map((n) => n[0]).join('')}
                     </div>
                     <div>
@@ -162,7 +162,7 @@ export default function DataTable({ data, onRowClick }) {
           Showing {filteredData.length} of {data.length} leads
         </p>
         <div className="flex gap-1">
-          <button className="rounded-lg bg-primary-600 px-3 py-1.5 text-xs font-medium text-white">1</button>
+          <button className="rounded-lg bg-primary-50 border border-primary-100 px-3 py-1.5 text-xs font-medium text-primary-600">1</button>
           <button className="rounded-lg px-3 py-1.5 text-xs font-medium text-surface-muted hover:bg-gray-100">2</button>
           <button className="rounded-lg px-3 py-1.5 text-xs font-medium text-surface-muted hover:bg-gray-100">3</button>
         </div>

@@ -8,8 +8,8 @@ export default function ChatBubble({ message, isOwn, senderName, time }) {
         <div
           className={`rounded-2xl px-4 py-3 ${
             isOwn
-              ? 'rounded-br-md bg-gradient-to-r from-primary-600 to-primary-700 text-white'
-              : 'rounded-bl-md bg-white text-secondary-900 shadow-md'
+              ? 'rounded-br-md bg-primary-500 text-white'
+              : 'rounded-bl-md bg-white text-secondary-800 shadow-sm border border-surface-border/50'
           }`}
         >
           <p className="text-sm leading-relaxed whitespace-pre-line">{message}</p>

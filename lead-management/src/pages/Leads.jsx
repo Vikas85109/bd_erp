@@ -40,7 +40,7 @@ export default function Leads() {
           </button>
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/25 transition-all duration-200 hover:shadow-lg hover:shadow-primary-500/30 hover:-translate-y-0.5"
+            className="flex items-center gap-2 rounded-xl bg-primary-500 hover:bg-primary-600 px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/15 transition-all duration-200 hover:shadow-lg hover:shadow-primary-500/20 hover:-translate-y-0.5"
           >
             <Plus className="h-4 w-4" />
             Add Lead
@@ -124,7 +124,7 @@ export default function Leads() {
             </button>
             <button
               type="submit"
-              className="rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/25 transition-all duration-200 hover:shadow-lg"
+              className="rounded-xl bg-primary-500 hover:bg-primary-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/15 transition-all duration-200 hover:shadow-lg"
             >
               Add Lead
             </button>

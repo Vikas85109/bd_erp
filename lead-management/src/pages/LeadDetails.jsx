@@ -70,8 +70,8 @@ export default function LeadDetails() {
             <h2 className="text-lg font-bold text-secondary-900">Contact Information</h2>
             <div className="mt-4 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-100">
-                  <Mail className="h-4 w-4 text-primary-600" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-50">
+                  <Mail className="h-4 w-4 text-primary-400" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Email</p>
@@ -79,8 +79,8 @@ export default function LeadDetails() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-100">
-                  <Phone className="h-4 w-4 text-emerald-600" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-50">
+                  <Phone className="h-4 w-4 text-accent-400" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Phone</p>
@@ -88,8 +88,8 @@ export default function LeadDetails() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-100">
-                  <Building2 className="h-4 w-4 text-purple-600" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-50">
+                  <Building2 className="h-4 w-4 text-violet-400" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Company</p>
@@ -97,8 +97,8 @@ export default function LeadDetails() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-100">
-                  <Calendar className="h-4 w-4 text-amber-600" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-warning-50">
+                  <Calendar className="h-4 w-4 text-warning-400" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Created</p>
@@ -106,8 +106,8 @@ export default function LeadDetails() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-100">
-                  <Clock className="h-4 w-4 text-cyan-600" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50">
+                  <Clock className="h-4 w-4 text-teal-400" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Last Contact</p>
@@ -124,7 +124,7 @@ export default function LeadDetails() {
               {lead.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-xs font-medium text-primary-700"
+                  className="inline-flex items-center gap-1 rounded-full bg-primary-50 border border-primary-100 px-3 py-1 text-xs font-medium text-primary-500"
                 >
                   <Tag className="h-3 w-3" />
                   {tag}
@@ -134,10 +134,10 @@ export default function LeadDetails() {
           </div>
 
           {/* Deal Value */}
-          <div className="rounded-2xl bg-gradient-to-br from-primary-600 to-indigo-700 p-6 text-white shadow-lg">
-            <p className="text-sm font-medium text-white/70">Deal Value</p>
-            <p className="mt-1 text-3xl font-bold">₹{(lead.value / 1000).toFixed(0)}K</p>
-            <p className="mt-2 text-sm text-white/70">Assigned to {lead.assignedTo}</p>
+          <div className="rounded-2xl bg-primary-50 border border-primary-100 p-6 shadow-sm">
+            <p className="text-sm font-medium text-surface-muted">Deal Value</p>
+            <p className="mt-1 text-3xl font-bold text-primary-600">₹{(lead.value / 1000).toFixed(0)}K</p>
+            <p className="mt-2 text-sm text-surface-muted">Assigned to {lead.assignedTo}</p>
           </div>
 
           {/* Notes */}
@@ -152,7 +152,7 @@ export default function LeadDetails() {
                 rows={3}
                 className="w-full rounded-xl border border-surface-border px-4 py-2.5 text-sm outline-none transition-all duration-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
               />
-              <button className="mt-2 rounded-lg bg-primary-600 px-4 py-2 text-xs font-medium text-white transition-all hover:bg-primary-700">
+              <button className="mt-2 rounded-lg bg-primary-500 px-4 py-2 text-xs font-medium text-white transition-all hover:bg-primary-600">
                 Save Note
               </button>
             </div>
@@ -164,7 +164,7 @@ export default function LeadDetails() {
           <div className="flex h-[calc(100vh-12rem)] flex-col rounded-2xl bg-white shadow-md">
             {/* Chat Header */}
             <div className="flex items-center gap-3 border-b border-surface-border px-6 py-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-700 text-sm font-bold text-white">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-100 text-sm font-bold text-primary-600">
                 {lead.name.split(' ').map((n) => n[0]).join('')}
               </div>
               <div>
@@ -204,7 +204,7 @@ export default function LeadDetails() {
                 />
                 <button
                   onClick={() => setNewMessage('')}
-                  className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/25 transition-all duration-200 hover:shadow-lg"
+                  className="flex items-center gap-2 rounded-xl bg-primary-500 hover:bg-primary-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/15 transition-all duration-200 hover:shadow-lg"
                 >
                   <Send className="h-4 w-4" />
                   Send

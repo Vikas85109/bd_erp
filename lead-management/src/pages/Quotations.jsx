@@ -18,7 +18,7 @@ export default function Quotations() {
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/25 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+          className="flex items-center gap-2 rounded-xl bg-primary-500 hover:bg-primary-600 px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/15 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
         >
           <Plus className="h-4 w-4" />
           New Quotation
@@ -75,7 +75,7 @@ export default function Quotations() {
                       setShowForm(false);
                       setToast({ message: 'Quotation generated!', type: 'success' });
                     }}
-                    className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-md transition-all duration-200 hover:shadow-lg"
+                    className="flex items-center gap-2 rounded-xl bg-primary-500 hover:bg-primary-600 px-4 py-2.5 text-sm font-medium text-white shadow-md transition-all duration-200 hover:shadow-lg"
                   >
                     <FileText className="h-4 w-4" />
                     Generate
@@ -140,7 +140,7 @@ export default function Quotations() {
                   <p className="mt-1 text-lg font-semibold text-primary-600">{selectedQuotation.id}</p>
                 </div>
                 <div className="text-right">
-                  <h3 className="text-xl font-bold bg-gradient-to-r from-primary-600 to-indigo-600 bg-clip-text text-transparent">
+                  <h3 className="text-xl font-bold text-primary-500">
                     LeadFlow CRM
                   </h3>
                   <p className="text-sm text-surface-muted">123 Business Street</p>
@@ -203,7 +203,7 @@ export default function Quotations() {
                   <div className="border-t border-surface-border pt-2">
                     <div className="flex justify-between">
                       <span className="text-lg font-bold text-secondary-900">Total</span>
-                      <span className="text-lg font-bold text-primary-700">₹{selectedQuotation.total.toLocaleString()}</span>
+                      <span className="text-lg font-bold text-primary-500">₹{selectedQuotation.total.toLocaleString()}</span>
                     </div>
                   </div>
                 </div>
@@ -211,7 +211,7 @@ export default function Quotations() {
 
               {/* Actions */}
               <div className="mt-8 flex gap-3">
-                <button className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-md transition-all hover:shadow-lg">
+                <button className="flex items-center gap-2 rounded-xl bg-primary-500 hover:bg-primary-600 px-4 py-2.5 text-sm font-medium text-white shadow-md transition-all hover:shadow-lg">
                   <Send className="h-4 w-4" />
                   Send to Client
                 </button>

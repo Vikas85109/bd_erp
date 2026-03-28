@@ -91,9 +91,9 @@ export const followups = [
 
 export const getPriorityColor = (priority) => {
   const colors = {
-    high: { border: 'border-l-red-500', bg: 'bg-red-50', text: 'text-red-700', badge: 'bg-red-100' },
-    medium: { border: 'border-l-amber-500', bg: 'bg-amber-50', text: 'text-amber-700', badge: 'bg-amber-100' },
-    low: { border: 'border-l-blue-500', bg: 'bg-blue-50', text: 'text-blue-700', badge: 'bg-blue-100' },
+    high: { border: 'border-l-error-400', bg: 'bg-error-50', text: 'text-error-400', badge: 'bg-error-50' },
+    medium: { border: 'border-l-warning-400', bg: 'bg-warning-50', text: 'text-warning-500', badge: 'bg-warning-50' },
+    low: { border: 'border-l-primary-300', bg: 'bg-primary-50', text: 'text-primary-400', badge: 'bg-primary-50' },
   };
   return colors[priority] || colors.low;
 };
