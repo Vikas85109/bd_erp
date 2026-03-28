@@ -1,21 +1,21 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {
-  ArrowLeft, Mail, Phone, Building2, Calendar, Tag, Send,
-  MapPin, Globe, Clock,
+  ArrowLeft, Mail, Phone, Building2, Calendar, Tag,
+  Clock, CalendarCheck,
 } from 'lucide-react';
-import ChatBubble from '../components/ChatBubble';
+import TaskCard from '../components/TaskCard';
 import { StatusBadge } from '../components/Badge';
 import { leads, getStatusColor, leadStatuses } from '../data/leads';
-import { chatMessages } from '../data/chat';
+import { getLeadFollowups } from '../data/followups';
 
 export default function LeadDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const lead = leads.find((l) => l.id === parseInt(id));
-  const [newMessage, setNewMessage] = useState('');
   const [status, setStatus] = useState(lead?.status || 'New');
   const [note, setNote] = useState('');
+  const leadFollowups = getLeadFollowups(lead?.id);
 
   if (!lead) {
     return (
@@ -70,8 +70,8 @@ export default function LeadDetails() {
             <h2 className="text-lg font-bold text-secondary-900">Contact Information</h2>
             <div className="mt-4 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-50">
-                  <Mail className="h-4 w-4 text-primary-400" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100">
+                  <Mail className="h-4 w-4 text-secondary-800" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Email</p>
@@ -79,8 +79,8 @@ export default function LeadDetails() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-50">
-                  <Phone className="h-4 w-4 text-accent-400" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100">
+                  <Phone className="h-4 w-4 text-secondary-800" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Phone</p>
@@ -88,8 +88,8 @@ export default function LeadDetails() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-50">
-                  <Building2 className="h-4 w-4 text-violet-400" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100">
+                  <Building2 className="h-4 w-4 text-secondary-800" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Company</p>
@@ -97,8 +97,8 @@ export default function LeadDetails() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-warning-50">
-                  <Calendar className="h-4 w-4 text-warning-400" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100">
+                  <Calendar className="h-4 w-4 text-secondary-800" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Created</p>
@@ -106,8 +106,8 @@ export default function LeadDetails() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-50">
-                  <Clock className="h-4 w-4 text-teal-400" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100">
+                  <Clock className="h-4 w-4 text-secondary-800" />
                 </div>
                 <div>
                   <p className="text-xs text-surface-muted">Last Contact</p>
@@ -157,59 +157,50 @@ export default function LeadDetails() {
               </button>
             </div>
           </div>
+
         </div>
 
-        {/* Right Panel - Chat UI */}
+        {/* Right Panel - Follow-ups */}
         <div className="lg:col-span-3">
-          <div className="flex h-[calc(100vh-12rem)] flex-col rounded-2xl bg-white shadow-md">
-            {/* Chat Header */}
-            <div className="flex items-center gap-3 border-b border-surface-border px-6 py-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-100 text-sm font-bold text-primary-600">
-                {lead.name.split(' ').map((n) => n[0]).join('')}
+          <div className="rounded-2xl bg-white shadow-md">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-surface-border px-6 py-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100">
+                  <CalendarCheck className="h-5 w-5 text-secondary-800" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-secondary-900">Follow-ups for {lead.name}</h3>
+                  <p className="text-xs text-surface-muted">{lead.company}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-secondary-900">Conversation with {lead.name}</h3>
-                <p className="text-xs text-surface-muted">via {lead.source}</p>
-              </div>
-            </div>
-
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-6">
-              <div className="mb-6 text-center">
-                <span className="rounded-full bg-surface-bg px-3 py-1 text-xs text-surface-muted">
-                  March 25, 2026
+              <div className="flex items-center gap-3">
+                <span className="rounded-full bg-primary-50 border border-primary-100 px-3 py-1 text-xs font-medium text-primary-500">
+                  {leadFollowups.filter((f) => !f.completed).length} pending
+                </span>
+                <span className="rounded-full bg-accent-50 border border-accent-100 px-3 py-1 text-xs font-medium text-accent-500">
+                  {leadFollowups.filter((f) => f.completed).length} done
                 </span>
               </div>
-              {chatMessages.map((msg) => (
-                <ChatBubble
-                  key={msg.id}
-                  message={msg.message}
-                  isOwn={msg.sender === 'agent'}
-                  senderName={msg.name}
-                  time={msg.time}
-                />
-              ))}
             </div>
 
-            {/* Input */}
-            <div className="border-t border-surface-border p-4">
-              <div className="flex gap-3">
-                <input
-                  type="text"
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  placeholder="Type a message..."
-                  className="flex-1 rounded-xl border border-surface-border px-4 py-2.5 text-sm outline-none transition-all duration-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
-                  onKeyDown={(e) => { if (e.key === 'Enter') setNewMessage(''); }}
-                />
-                <button
-                  onClick={() => setNewMessage('')}
-                  className="flex items-center gap-2 rounded-xl bg-primary-500 hover:bg-primary-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/15 transition-all duration-200 hover:shadow-lg"
-                >
-                  <Send className="h-4 w-4" />
-                  Send
-                </button>
-              </div>
+            {/* Follow-up Tasks */}
+            <div className="p-6">
+              {leadFollowups.length > 0 ? (
+                <div className="space-y-3">
+                  {leadFollowups.map((task) => (
+                    <TaskCard key={task.id} task={task} />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-16 text-center">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100">
+                    <CalendarCheck className="h-7 w-7 text-secondary-800" />
+                  </div>
+                  <p className="mt-4 font-medium text-secondary-800">No follow-ups yet</p>
+                  <p className="mt-1 text-sm text-surface-muted">Create a follow-up task for {lead.name}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
