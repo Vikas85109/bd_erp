@@ -16,7 +16,7 @@ export default function StatCard({ title, value, change, changeType, gradient, i
             <Icon className={`h-5 w-5 ${iconColor || 'text-primary-500'}`} />
           </div>
         </div>
-
+      
         <div className="mt-4 flex items-center gap-1.5">
           {changeType === 'positive' ? (
             <TrendingUp className="h-4 w-4 text-accent-500" />

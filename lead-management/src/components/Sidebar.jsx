@@ -4,25 +4,41 @@ import {
   LayoutDashboard,
   Users,
   FileText,
-  Bot,
-  CalendarCheck,
-  Kanban,
-  ChevronLeft,
-  ChevronRight,
-  Zap,
+  UserCircle,
+  Package,
+  ShieldCheck,
+  Settings,
+  PanelLeftClose,
+  PanelLeftOpen,
+  ChevronDown,
+  Box,
+  FolderTree,
 } from 'lucide-react';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/leads', icon: Users, label: 'Leads' },
   { to: '/quotations', icon: FileText, label: 'Quotations' },
-  { to: '/ai-assistant', icon: Bot, label: 'AI Assistant' },
-  { to: '/follow-ups', icon: CalendarCheck, label: 'Follow-ups' },
-  { to: '/crm', icon: Kanban, label: 'CRM Pipeline' },
+  { to: '/clients', icon: UserCircle, label: 'Clients' },
+  {
+    label: 'Products',
+    icon: Package,
+    children: [
+      { to: '/products', icon: Box, label: 'All Products' },
+      { to: '/products/categories', icon: FolderTree, label: 'Categories' },
+    ],
+  },
+  { to: '/users', icon: Users, label: 'Users' },
+  { to: '/permissions', icon: ShieldCheck, label: 'Permissions' },
+  { to: '/settings', icon: Settings, label: 'Settings' },
 ];
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const [openGroups, setOpenGroups] = useState({ Products: true });
+
+  const toggleGroup = (label) =>
+    setOpenGroups((s) => ({ ...s, [label]: !s[label] }));
 
   return (
     <aside
@@ -31,59 +47,111 @@ export default function Sidebar() {
       }`}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center gap-3 border-b border-surface-border px-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 border border-primary-100">
-          <Zap className="h-5 w-5 text-primary-500" />
-        </div>
-        {!collapsed && (
-          <div className="overflow-hidden">
-            <h1 className="text-lg font-bold text-secondary-900">LeadFlow</h1>
-            <p className="text-xs text-surface-muted">Sales CRM</p>
+      <div className="flex h-16 items-center justify-between gap-3 border-b border-surface-border px-4">
+        <div className="flex items-center gap-2 overflow-hidden">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary-50 border border-primary-100">
+            <span className="text-primary-600 font-bold text-sm">B&gt;</span>
           </div>
-        )}
+          {!collapsed && (
+            <h1 className="text-base font-bold text-secondary-900">BDD CRM</h1>
+          )}
+        </div>
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="shrink-0 rounded-lg p-1.5 text-surface-muted hover:bg-surface-bg hover:text-secondary-900"
+        >
+          {collapsed ? (
+            <PanelLeftOpen className="h-4 w-4" />
+          ) : (
+            <PanelLeftClose className="h-4 w-4" />
+          )}
+        </button>
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto p-3">
         <div className="space-y-1">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              className={({ isActive }) =>
-                `group flex items-center gap-3 rounded-xl px-3 py-2.5 font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-primary-50 text-primary-600 border border-primary-100'
-                    : 'text-surface-muted hover:bg-surface-bg hover:text-secondary-800'
-                } ${collapsed ? 'justify-center' : ''}`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <item.icon
-                    className={`h-5 w-5 shrink-0 ${
-                      isActive ? 'text-primary-500' : 'text-surface-muted group-hover:text-primary-400'
+          {navItems.map((item) => {
+            if (item.children) {
+              const isOpen = openGroups[item.label];
+              return (
+                <div key={item.label}>
+                  <button
+                    onClick={() => toggleGroup(item.label)}
+                    className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 font-medium text-surface-muted transition-all duration-200 hover:bg-surface-bg hover:text-secondary-800 ${
+                      collapsed ? 'justify-center' : ''
                     }`}
-                  />
-                  {!collapsed && <span className="text-sm">{item.label}</span>}
-                </>
-              )}
-            </NavLink>
-          ))}
+                  >
+                    <item.icon className="h-5 w-5 shrink-0 text-surface-muted group-hover:text-primary-400" />
+                    {!collapsed && (
+                      <>
+                        <span className="text-sm flex-1 text-left">{item.label}</span>
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform ${
+                            isOpen ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </>
+                    )}
+                  </button>
+                  {!collapsed && isOpen && (
+                    <div className="ml-4 mt-1 space-y-1 border-l border-surface-border pl-2">
+                      {item.children.map((child) => (
+                        <NavLink
+                          key={child.to}
+                          to={child.to}
+                          className={({ isActive }) =>
+                            `group flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 ${
+                              isActive
+                                ? 'bg-primary-50 text-primary-600'
+                                : 'text-surface-muted hover:bg-surface-bg hover:text-secondary-800'
+                            }`
+                          }
+                        >
+                          <child.icon className="h-4 w-4 shrink-0" />
+                          <span>{child.label}</span>
+                        </NavLink>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === '/'}
+                className={({ isActive }) =>
+                  `group flex items-center gap-3 rounded-xl px-3 py-2.5 font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'bg-primary-50 text-primary-600 border border-primary-100'
+                      : 'text-surface-muted hover:bg-surface-bg hover:text-secondary-800'
+                  } ${collapsed ? 'justify-center' : ''}`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <item.icon
+                      className={`h-5 w-5 shrink-0 ${
+                        isActive ? 'text-primary-500' : 'text-surface-muted group-hover:text-primary-400'
+                      }`}
+                    />
+                    {!collapsed && <span className="text-sm">{item.label}</span>}
+                  </>
+                )}
+              </NavLink>
+            );
+          })}
         </div>
       </nav>
 
-      {/* Collapse Toggle */}
-      <div className="border-t border-surface-border p-3">
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium text-surface-muted transition-all duration-200 hover:bg-surface-bg hover:text-secondary-900"
-        >
-          {collapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
-          {!collapsed && <span>Collapse</span>}
-        </button>
-      </div>
+      {/* Footer */}
+      {!collapsed && (
+        <div className="border-t border-surface-border px-4 py-3">
+          <p className="text-xs text-surface-muted">© 2024 BDD CRM</p>
+        </div>
+      )}
     </aside>
   );
 }

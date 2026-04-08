@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx --yes md-to-pdf PROJECT_PLAN.md)"
+    ]
+  }
+}

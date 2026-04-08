@@ -32,14 +32,14 @@ export default function Navbar() {
           <button
             onClick={() => { setShowNotifications(!showNotifications); setShowProfile(false); }}
             className="relative rounded-xl p-2.5 text-surface-muted transition-all duration-200 hover:bg-surface-bg hover:text-secondary-900"
-          >
+          >     
             <Bell className="h-5 w-5" />
             <span className="absolute right-1.5 top-1.5 flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-error-400 opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-error-400" />
             </span>
           </button>
-
+                
           {showNotifications && (
             <div className="absolute right-0 top-12 w-80 rounded-2xl bg-white/95 shadow-xl backdrop-blur-xl border border-surface-border">
               <div className="border-b border-surface-border p-4">
