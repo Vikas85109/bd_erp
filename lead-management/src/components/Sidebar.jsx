@@ -46,22 +46,22 @@ export default function Sidebar({ collapsed, onToggle }) {
       className={`fixed left-0 top-0 z-30 flex h-screen flex-col border-r border-surface-border bg-white transition-all duration-300 ${
         collapsed ? 'w-20' : 'w-64'
       }`}
-    >
-      {/* Logo */}
-      <div className="flex h-16 items-center justify-between gap-3 border-b border-surface-border px-4">
-        <div className="flex items-center gap-2 overflow-hidden">
+    >                              
+      {/* Logo */} 
+      <div className="flex h-16 items-center justify-between gap-3 border-b border-surface-border px-4"> 
+        <div className="flex items-center gap-2 overflow-hidden"> 
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-primary-100 bg-primary-50">
             <span className="text-sm font-bold text-primary-600">B&gt;</span>
           </div>
-          {!collapsed && <h1 className="text-base font-bold text-secondary-900">BDD CRM</h1>}
-        </div>
-        <button
-          onClick={onToggle}
+          {!collapsed && <h1 className="text-base font-bold text-secondary-900">BDD CRM</h1>} 
+        </div>    
+        <button  
+          onClick={onToggle} 
           className="shrink-0 rounded-lg p-1.5 text-surface-muted transition-colors hover:bg-surface-bg hover:text-secondary-900"
-        >
+        >    
           {collapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
-        </button>
-      </div>
+        </button>    
+      </div> 
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto p-3">
