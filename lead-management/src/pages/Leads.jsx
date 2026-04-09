@@ -309,7 +309,7 @@ export default function Leads() {
         </div>
         <div className="flex flex-wrap gap-2">
           {/* Auto-Capture Toggle */}
-          <button
+          {/* <button
             onClick={() => setAutoCapture((prev) => !prev)}
             className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium shadow-sm transition-all duration-200 ${
               autoCapture
@@ -326,7 +326,7 @@ export default function Leads() {
           >
             <Download className="h-4 w-4" />
             Export CSV
-          </button>
+          </button> */}
           <button
             onClick={() => setShowAddModal(true)}
             className="flex items-center gap-2 rounded-xl bg-primary-500 hover:bg-primary-600 px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/15 transition-all duration-200 hover:shadow-lg hover:shadow-primary-500/20 hover:-translate-y-0.5"
