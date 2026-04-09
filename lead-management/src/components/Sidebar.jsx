@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -13,6 +13,9 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   ChevronDown,
+  LogOut,
+  User,
+  ChevronsUpDown,
 } from 'lucide-react';
 
 const navItems = [
@@ -37,6 +40,18 @@ export default function Sidebar({ collapsed, onToggle }) {
   const location = useLocation();
   const isProductsActive = location.pathname.startsWith('/products');
   const [openGroups, setOpenGroups] = useState({ Products: isProductsActive });
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const toggleGroup = (label) =>
     setOpenGroups((s) => ({ ...s, [label]: !s[label] }));
@@ -63,7 +78,7 @@ export default function Sidebar({ collapsed, onToggle }) {
         </button>    
       </div> 
 
-      {/* Navigation */}
+      {/* Navigation */}  
       <nav className="flex-1 overflow-y-auto p-3">
         <div className="space-y-1">
           {navItems.map((item) => {
@@ -94,11 +109,11 @@ export default function Sidebar({ collapsed, onToggle }) {
                         <NavLink
                           key={child.to}
                           to={child.to}
-                          end
+                          end      
                           className={({ isActive }) =>
                             `group flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 ${
                               isActive
-                                ? 'bg-primary-50 text-primary-600'
+                                ? 'bg-primary-50 text-primary-600' 
                                 : 'text-surface-muted hover:bg-surface-bg hover:text-secondary-800'
                             }`
                           }
@@ -121,7 +136,7 @@ export default function Sidebar({ collapsed, onToggle }) {
                 end={item.to === '/'}
                 className={({ isActive }) =>
                   `group flex items-center gap-3 rounded-xl px-3 py-2.5 font-medium transition-all duration-200 ${
-                    isActive
+                    isActive 
                       ? 'border border-primary-100 bg-primary-50 text-primary-600'
                       : 'text-surface-muted hover:bg-surface-bg hover:text-secondary-800'
                   } ${collapsed ? 'justify-center' : ''}`
@@ -130,24 +145,76 @@ export default function Sidebar({ collapsed, onToggle }) {
                 {({ isActive }) => (
                   <>
                     <item.icon
-                      className={`h-5 w-5 shrink-0 ${
+                      className={`h-5 w-5 shrink-0 ${ 
                         isActive ? 'text-primary-500' : 'text-surface-muted group-hover:text-primary-400'
-                      }`}
-                    />
-                    {!collapsed && <span className="text-sm">{item.label}</span>}
-                  </>
-                )}
-              </NavLink>
+                      }`} 
+                    />  
+                    {!collapsed && <span className="text-sm">{item.label}</span>}  
+                  </> 
+                )} 
+              </NavLink> 
             );
           })}
         </div>
       </nav>
 
-      {!collapsed && (
-        <div className="border-t border-surface-border px-4 py-3">
-          <p className="text-xs text-surface-muted">© 2026 BDD CRM</p>
-        </div>
-      )}
+      {/* User Section */}
+      <div className="border-t border-surface-border p-3">
+        {collapsed ? (
+          <button
+            onClick={() => setUserMenuOpen((v) => !v)}
+            className="relative flex w-full items-center justify-center rounded-xl p-2 transition-colors hover:bg-surface-bg"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-100 text-sm font-semibold text-primary-600">
+              VS
+            </div>
+          </button>
+        ) : (
+          <div className="relative" ref={userMenuRef}>
+            <button
+              onClick={() => setUserMenuOpen((v) => !v)}
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-surface-bg"
+            >
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-100 text-sm font-semibold text-primary-600">
+                VS
+              </div>
+              <div className="flex-1 text-left">
+                <p className="text-sm font-medium text-secondary-900">Vikas Sharma</p>
+                <p className="text-xs text-surface-muted">Admin</p>
+              </div>
+              <ChevronsUpDown className="h-4 w-4 shrink-0 text-surface-muted" />
+            </button>
+
+            {userMenuOpen && (
+              <div className="absolute bottom-full left-0 mb-2 w-full rounded-xl border border-surface-border bg-white p-1 shadow-lg">
+                <NavLink
+                  to="/profile"
+                  onClick={() => setUserMenuOpen(false)}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-secondary-700 transition-colors hover:bg-surface-bg hover:text-secondary-900"
+                >
+                  <User className="h-4 w-4" />
+                  My Profile
+                </NavLink>
+                <NavLink
+                  to="/settings"
+                  onClick={() => setUserMenuOpen(false)}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-secondary-700 transition-colors hover:bg-surface-bg hover:text-secondary-900"
+                >
+                  <SettingsIcon className="h-4 w-4" />
+                  Settings
+                </NavLink>
+                <div className="my-1 border-t border-surface-border" />
+                <button
+                  className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-error-600 transition-colors hover:bg-error-50"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </aside>
   );
 }
