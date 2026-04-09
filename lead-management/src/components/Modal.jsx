@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { X } from 'lucide-react';
 
-export default function Modal({ isOpen, onClose, title, children }) {
+export default function Modal({ isOpen, onClose, title, children, footer }) {
   if (!isOpen) return null;
 
   return (
@@ -14,8 +14,8 @@ export default function Modal({ isOpen, onClose, title, children }) {
 
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="w-full max-w-lg rounded-2xl bg-white/95 shadow-2xl backdrop-blur-xl">
-          <div className="flex items-center justify-between border-b border-surface-border p-6">
+        <div className="w-full max-w-lg max-h-[85vh] flex flex-col rounded-2xl bg-white/95 shadow-2xl backdrop-blur-xl">
+          <div className="flex items-center justify-between border-b border-surface-border p-6 shrink-0">
             <h2 className="text-lg font-bold text-secondary-900">{title}</h2>
             <button
               onClick={onClose}
@@ -24,7 +24,10 @@ export default function Modal({ isOpen, onClose, title, children }) {
               <X className="h-5 w-5" />
             </button>
           </div>
-          <div className="p-6">{children}</div>
+          <div className="p-6 overflow-y-auto flex-1 min-h-0">{children}</div>
+          {footer && (
+            <div className="border-t border-surface-border p-6 shrink-0">{footer}</div>
+          )}
         </div>
       </div>
     </Fragment>

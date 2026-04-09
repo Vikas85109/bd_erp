@@ -190,7 +190,7 @@ export default function Leads() {
 
   // --- Add lead handler ---
   const handleAddLead = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim()) {
       setToast({ message: 'Name and Email are required.', type: 'error' });
       return;
@@ -635,8 +635,30 @@ export default function Leads() {
       </div>
 
       {/* Add Lead Modal */}
-      <Modal isOpen={showAddModal} onClose={() => setShowAddModal(false)} title="Add New Lead">
-        <form onSubmit={handleAddLead} className="space-y-4">
+      <Modal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        title="Add New Lead"
+        footer={
+          <div className="flex justify-end gap-3">
+            <button
+              type="button"
+              onClick={() => setShowAddModal(false)}
+              className="rounded-xl border border-surface-border px-5 py-2.5 text-sm font-medium text-surface-muted transition-all duration-200 hover:bg-surface-bg"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleAddLead}
+              className="rounded-xl bg-primary-500 hover:bg-primary-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/15 transition-all duration-200 hover:shadow-lg"
+            >
+              Add Lead
+            </button>
+          </div>
+        }
+      >
+        <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-secondary-800">
@@ -747,23 +769,7 @@ export default function Leads() {
               </span>
             </div>
           </div>
-
-          <div className="flex justify-end gap-3 pt-2">
-            <button
-              type="button"
-              onClick={() => setShowAddModal(false)}
-              className="rounded-xl border border-surface-border px-5 py-2.5 text-sm font-medium text-surface-muted transition-all duration-200 hover:bg-surface-bg"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="rounded-xl bg-primary-500 hover:bg-primary-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-primary-500/15 transition-all duration-200 hover:shadow-lg"
-            >
-              Add Lead
-            </button>
-          </div>
-        </form>
+        </div>
       </Modal>
 
       {/* Toast */}
