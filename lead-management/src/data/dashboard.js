@@ -1,119 +1,26 @@
-export const stats = [
-  {
-    title: 'Total Leads',
-    value: '2,847',
-    change: '+12.5%',
-    changeType: 'positive',
-    gradient: 'from-primary-400 to-primary-600',
-    icon: 'Users',
-    iconColor: 'text-primary-500',
-    iconBg: 'bg-primary-50',
-  },
-  {
-    title: 'Converted',
-    value: '643',
-    change: '+8.2%',
-    changeType: 'positive',
-    gradient: 'from-accent-400 to-accent-500',
-    icon: 'CheckCircle',
-    iconColor: 'text-accent-500',
-    iconBg: 'bg-accent-50',
-  },
-  {
-    title: 'Pending',
-    value: '1,204',
-    change: '-3.1%',
-    changeType: 'negative',
-    gradient: 'from-warning-400 to-warning-500',
-    icon: 'Clock',
-    iconColor: 'text-warning-500',
-    iconBg: 'bg-warning-50',
-  },
-  {
-    title: 'Revenue',
-    value: '₹48.5L',
-    change: '+18.7%',
-    changeType: 'positive',
-    gradient: 'from-violet-400 to-violet-600',
-    icon: 'IndianRupee',
-    iconColor: 'text-violet-500',
-    iconBg: 'bg-violet-50',
-  },
-];
+import { leads } from './leads';
+import { quotations } from './quotations';
+
+const inr = (n) => `₹${(n / 1000).toFixed(0)}K`;
+
+export const getDashboardStats = () => {
+  const totalLeads = leads.length;
+  const wonLeads = leads.filter((l) => l.status === 'Won').length;
+  const pipelineValue = leads.reduce((s, l) => s + l.value, 0);
+  const acceptedQuotes = quotations.filter((q) => q.status === 'Accepted').length;
+
+  return [
+    { label: 'Total Leads',     value: totalLeads,           change: '+12%', trend: 'up'   },
+    { label: 'Pipeline Value',  value: inr(pipelineValue),   change: '+8.4%',trend: 'up'   },
+    { label: 'Won Deals',       value: wonLeads,             change: '+3',   trend: 'up'   },
+    { label: 'Accepted Quotes', value: acceptedQuotes,       change: '-1',   trend: 'down' },
+  ];
+};
 
 export const recentActivity = [
-  {
-    id: 1,
-    action: 'New lead added',
-    description: 'Sneha Iyer from CloudOps Technologies',
-    time: '2 minutes ago',
-    type: 'lead',
-  },
-  {
-    id: 2,
-    action: 'Quotation sent',
-    description: 'Proposal #Q-2847 sent to Meera Nair',
-    time: '1 hour ago',
-    type: 'quotation',
-  },
-  {
-    id: 3,
-    action: 'Lead converted',
-    description: 'Suresh Reddy signed monthly subscription',
-    time: '3 hours ago',
-    type: 'conversion',
-  },
-  {
-    id: 4,
-    action: 'Follow-up completed',
-    description: 'Call with Vikram Singh - Demo scheduled',
-    time: '5 hours ago',
-    type: 'followup',
-  },
-  {
-    id: 5,
-    action: 'AI suggestion accepted',
-    description: 'Auto follow-up email sent to Arjun Mehta',
-    time: '6 hours ago',
-    type: 'ai',
-  },
-  {
-    id: 6,
-    action: 'Pipeline updated',
-    description: 'Rohit Gupta moved to Qualified stage',
-    time: '8 hours ago',
-    type: 'pipeline',
-  },
-  {
-    id: 7,
-    action: 'New lead added',
-    description: 'Deepika Joshi from EduLearn Academy',
-    time: 'Yesterday',
-    type: 'lead',
-  },
-  {
-    id: 8,
-    action: 'Quotation approved',
-    description: 'Proposal #Q-2839 approved by management',
-    time: 'Yesterday',
-    type: 'quotation',
-  },
+  { id: 1, text: 'New lead Aarav Mehta added from Website',     time: '2m ago' },
+  { id: 2, text: 'Quotation Q-2847 sent to Orbit Logistics',    time: '1h ago' },
+  { id: 3, text: 'Meera Nair moved to Proposal stage',          time: '3h ago' },
+  { id: 4, text: 'Deal won — GreenLeaf Retail (₹1.75L)',        time: '5h ago' },
+  { id: 5, text: 'Follow-up scheduled with Vikram Singh',       time: 'Yday'   },
 ];
-
-export const chartData = {
-  monthly: [
-    { month: 'Oct', leads: 180, converted: 42 },
-    { month: 'Nov', leads: 220, converted: 58 },
-    { month: 'Dec', leads: 195, converted: 45 },
-    { month: 'Jan', leads: 260, converted: 72 },
-    { month: 'Feb', leads: 310, converted: 85 },
-    { month: 'Mar', leads: 340, converted: 98 },
-  ],
-  sources: [
-    { name: 'Website', value: 35, color: '#818CF8' },
-    { name: 'Email', value: 25, color: '#A78BFA' },
-    { name: 'WhatsApp', value: 20, color: '#2DD4BF' },
-    { name: 'Referral', value: 12, color: '#FBBF24' },
-    { name: 'Social Media', value: 8, color: '#F9A8D4' },
-  ],
-};

@@ -1,67 +1,47 @@
-import { useState } from 'react';
-import { Search, Plus, MoreHorizontal } from 'lucide-react';
+import { Plus, FolderTree, Pencil, Trash2 } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 import { categories } from '../data/products';
 
 export default function Categories() {
-  const [query, setQuery] = useState('');
-  const filtered = categories.filter((c) =>
-    c.name.toLowerCase().includes(query.toLowerCase())
-  );
-
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-secondary-900">Categories</h1>
-          <p className="text-sm text-surface-muted mt-1">Manage product categories</p>
-        </div>
-        <button className="flex items-center gap-2 rounded-xl bg-primary-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-600 transition-colors">
-          <Plus className="h-4 w-4" />
-          Add Category
-        </button>
-      </div>
+      <PageHeader
+        title="Product Categories"
+        subtitle="Organise your product catalogue."
+        action={
+          <button className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-primary-700 active:scale-[0.99]">
+            <Plus className="h-4 w-4" /> New Category
+          </button>
+        }
+      />
 
-      {/* Search */}
-      <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-surface-muted" />
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search categories..."
-          className="w-full rounded-xl border border-surface-border bg-white py-2.5 pl-10 pr-4 text-sm placeholder:text-surface-muted focus:outline-none focus:ring-2 focus:ring-primary-100"
-        />
-      </div>
-
-      {/* Table */}
-      <div className="rounded-2xl border border-surface-border bg-white overflow-hidden">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-surface-border bg-surface-bg/40">
-              <th className="px-6 py-3 text-left text-xs font-semibold text-surface-muted uppercase tracking-wider">#</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-surface-muted uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-surface-muted uppercase tracking-wider">Description</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-surface-muted uppercase tracking-wider">Created</th>
-              <th className="px-6 py-3"></th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-surface-border">
-            {filtered.map((c, idx) => (
-              <tr key={c.id} className="hover:bg-surface-bg/40 transition-colors">
-                <td className="px-6 py-4 text-sm text-surface-muted">{idx + 1}</td>
-                <td className="px-6 py-4 text-sm font-semibold text-secondary-900">{c.name}</td>
-                <td className="px-6 py-4 text-sm text-surface-muted">{c.description}</td>
-                <td className="px-6 py-4 text-sm text-surface-muted">{c.created}</td>
-                <td className="px-6 py-4 text-right">
-                  <button className="text-surface-muted hover:text-secondary-900">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {categories.map((c) => (
+          <div
+            key={c.id}
+            className="group rounded-2xl border border-surface-border bg-surface-card p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary-100 bg-primary-50">
+                <FolderTree className="h-5 w-5 text-primary-600" />
+              </div>
+              <div className="flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                <button className="rounded-lg p-1.5 text-surface-muted transition-colors hover:bg-surface-bg hover:text-secondary-900">
+                  <Pencil className="h-3.5 w-3.5" />
+                </button>
+                <button className="rounded-lg p-1.5 text-surface-muted transition-colors hover:bg-error-50 hover:text-error-500">
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+            <h3 className="mt-4 text-base font-semibold text-secondary-900">{c.name}</h3>
+            <p className="mt-1 text-xs text-surface-muted">{c.description}</p>
+            <div className="mt-4 flex items-center justify-between border-t border-surface-border pt-3">
+              <span className="text-xs text-surface-muted">{c.productsCount} products</span>
+              <span className="font-mono text-xs text-surface-muted">/{c.slug}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

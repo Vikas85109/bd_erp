@@ -1,131 +1,171 @@
 import { useState } from 'react';
-import { UserCircle, Palette, Bell, Save } from 'lucide-react';
+import { Save, Bell, Globe, Lock, User } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
+
+const TABS = [
+  { key: 'profile',     label: 'Profile',       icon: User  },
+  { key: 'notifications', label: 'Notifications', icon: Bell  },
+  { key: 'security',    label: 'Security',      icon: Lock  },
+  { key: 'general',     label: 'General',       icon: Globe },
+];
 
 export default function Settings() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [notif, setNotif] = useState({ email: true, push: false, weekly: true });
+  const [active, setActive] = useState('profile');
 
   return (
-    <div className="space-y-6 max-w-3xl">
-      <div>
-        <h1 className="text-2xl font-bold text-secondary-900">Settings</h1>
-        <p className="text-sm text-surface-muted mt-1">Manage your account and application preferences</p>
-      </div>
-
-      {/* Profile */}
-      <Section icon={UserCircle} title="Profile Settings" subtitle="Manage your personal account details">
-        <div className="flex items-center gap-4 pb-5 border-b border-surface-border">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-50 border border-primary-100 text-base font-semibold text-primary-600">
-            AU
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-secondary-900">Admin User</p>
-            <p className="text-xs text-surface-muted">Super_admin</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-5">
-          <Field label="Full Name" defaultValue="Admin User" />
-          <Field label="Email" defaultValue="admin@bindassdeal.com" type="email" />
-          <Field label="Role" defaultValue="SUPER_ADMIN" disabled />
-          <Field label="Member Since" defaultValue="April 2, 2026" disabled />
-        </div>
-
-        <div className="flex justify-end pt-5">
-          <button className="flex items-center gap-2 rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-600">
-            <Save className="h-4 w-4" />
-            Save Profile
+    <div className="space-y-6">
+      <PageHeader
+        title="Settings"
+        subtitle="Manage your account, notifications and workspace preferences."
+        action={
+          <button className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-primary-700 active:scale-[0.99]">
+            <Save className="h-4 w-4" /> Save
           </button>
-        </div>
-      </Section>
+        }
+      />
 
-      {/* Appearance */}
-      <Section icon={Palette} title="Appearance" subtitle="Customize the look and feel">
-        <Toggle
-          label="Dark Mode"
-          desc="Toggle between light and dark theme"
-          checked={darkMode}
-          onChange={() => setDarkMode(!darkMode)}
-        />
-      </Section>
-
-      {/* Notifications */}
-      <Section icon={Bell} title="Notifications" subtitle="Configure notification preferences">
-        <div className="space-y-4">
-          <Toggle
-            label="Email Notifications"
-            desc="Receive updates via email"
-            checked={notif.email}
-            onChange={() => setNotif({ ...notif, email: !notif.email })}
-          />
-          <div className="border-t border-surface-border" />
-          <Toggle
-            label="Push Notifications"
-            desc="Get real-time alerts in your browser"
-            checked={notif.push}
-            onChange={() => setNotif({ ...notif, push: !notif.push })}
-          />
-          <div className="border-t border-surface-border" />
-          <Toggle
-            label="Weekly Digest"
-            desc="Summary of your activity every Monday"
-            checked={notif.weekly}
-            onChange={() => setNotif({ ...notif, weekly: !notif.weekly })}
-          />
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
+        {/* Tabs */}
+        <div className="rounded-2xl border border-surface-border bg-surface-card p-3 lg:col-span-1">
+          {TABS.map((t) => {
+            const isActive = active === t.key;
+            return (
+              <button
+                key={t.key}
+                onClick={() => setActive(t.key)}
+                className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
+                  isActive
+                    ? 'border border-primary-100 bg-primary-50 text-primary-600'
+                    : 'border border-transparent text-surface-muted hover:bg-surface-bg hover:text-secondary-800'
+                }`}
+              >
+                <t.icon className={`h-4 w-4 ${isActive ? 'text-primary-500' : ''}`} />
+                {t.label}
+              </button>
+            );
+          })}
         </div>
-      </Section>
+
+        {/* Panel */}
+        <div className="rounded-2xl border border-surface-border bg-surface-card p-6 lg:col-span-3">
+          {active === 'profile' && <ProfilePanel />}
+          {active === 'notifications' && <NotificationsPanel />}
+          {active === 'security' && <SecurityPanel />}
+          {active === 'general' && <GeneralPanel />}
+        </div>
+      </div>
     </div>
   );
 }
 
-function Section({ icon: Icon, title, subtitle, children }) {
+function Field({ label, children }) {
   return (
-    <div className="rounded-2xl border border-surface-border bg-white p-6">
-      <div className="flex items-center gap-2 mb-1">
-        <Icon className="h-5 w-5 text-primary-500" />
-        <h2 className="text-base font-bold text-secondary-900">{title}</h2>
-      </div>
-      <p className="text-xs text-surface-muted mb-5">{subtitle}</p>
+    <div>
+      <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-surface-muted">
+        {label}
+      </label>
       {children}
     </div>
   );
 }
 
-function Field({ label, defaultValue, type = 'text', disabled = false }) {
+const inputCls =
+  'w-full rounded-xl border border-surface-border bg-white px-4 py-2 text-sm outline-none transition-all duration-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20';
+
+function ProfilePanel() {
   return (
     <div>
-      <label className="block text-xs font-semibold text-secondary-800 mb-1.5">{label}</label>
-      <input
-        type={type}
-        defaultValue={defaultValue}
-        disabled={disabled}
-        className={`w-full rounded-xl border border-surface-border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-100 ${
-          disabled ? 'bg-surface-bg text-surface-muted cursor-not-allowed' : 'bg-white text-secondary-900'
-        }`}
-      />
+      <h2 className="text-sm font-semibold text-secondary-900">Profile</h2>
+      <p className="mt-1 text-xs text-surface-muted">Personal information visible to your team.</p>
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <Field label="Full Name"><input defaultValue="Priya Sharma" className={inputCls} /></Field>
+        <Field label="Email"><input defaultValue="priya@bddcrm.io" className={inputCls} /></Field>
+        <Field label="Role"><input defaultValue="Sales Manager" disabled className={`${inputCls} opacity-60`} /></Field>
+        <Field label="Phone"><input defaultValue="+91 98765 43210" className={inputCls} /></Field>
+      </div>
     </div>
   );
 }
 
-function Toggle({ label, desc, checked, onChange }) {
-  return (
-    <div className="flex items-center justify-between gap-4">
+function NotificationsPanel() {
+  const [prefs, setPrefs] = useState({ leads: true, quotes: true, weekly: false });
+  const Toggle = ({ label, hint, k }) => (
+    <div className="flex items-start justify-between gap-4 border-b border-surface-border py-4 last:border-0">
       <div>
         <p className="text-sm font-semibold text-secondary-900">{label}</p>
-        <p className="text-xs text-surface-muted">{desc}</p>
+        <p className="mt-0.5 text-xs text-surface-muted">{hint}</p>
       </div>
       <button
-        onClick={onChange}
-        className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
-          checked ? 'bg-primary-500' : 'bg-surface-border'
+        onClick={() => setPrefs((p) => ({ ...p, [k]: !p[k] }))}
+        className={`relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
+          prefs[k] ? 'bg-primary-600' : 'bg-surface-border'
         }`}
       >
         <span
-          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
-            checked ? 'left-[22px]' : 'left-0.5'
+          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200 ${
+            prefs[k] ? 'translate-x-5' : 'translate-x-0.5'
           }`}
         />
       </button>
+    </div>
+  );
+
+  return (
+    <div>
+      <h2 className="text-sm font-semibold text-secondary-900">Notifications</h2>
+      <p className="mt-1 text-xs text-surface-muted">Choose what you get notified about.</p>
+      <div className="mt-3">
+        <Toggle k="leads"  label="New leads"        hint="Email me when a new lead is created." />
+        <Toggle k="quotes" label="Quotation status" hint="Notify on quotation accept / reject." />
+        <Toggle k="weekly" label="Weekly digest"    hint="Send a sales summary every Monday."   />
+      </div>
+    </div>
+  );
+}
+
+function SecurityPanel() {
+  return (
+    <div>
+      <h2 className="text-sm font-semibold text-secondary-900">Security</h2>
+      <p className="mt-1 text-xs text-surface-muted">Update your password and session preferences.</p>
+      <div className="mt-5 grid max-w-md grid-cols-1 gap-4">
+        <Field label="Current Password"><input type="password" className={inputCls} /></Field>
+        <Field label="New Password"><input type="password" className={inputCls} /></Field>
+        <Field label="Confirm Password"><input type="password" className={inputCls} /></Field>
+      </div>
+    </div>
+  );
+}
+
+function GeneralPanel() {
+  return (
+    <div>
+      <h2 className="text-sm font-semibold text-secondary-900">General</h2>
+      <p className="mt-1 text-xs text-surface-muted">Workspace defaults and locale.</p>
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <Field label="Workspace Name"><input defaultValue="BDD CRM" className={inputCls} /></Field>
+        <Field label="Timezone">
+          <select className={inputCls} defaultValue="Asia/Kolkata">
+            <option>Asia/Kolkata</option>
+            <option>UTC</option>
+            <option>America/New_York</option>
+          </select>
+        </Field>
+        <Field label="Currency">
+          <select className={inputCls} defaultValue="INR">
+            <option>INR</option>
+            <option>USD</option>
+            <option>EUR</option>
+          </select>
+        </Field>
+        <Field label="Date Format">
+          <select className={inputCls} defaultValue="YYYY-MM-DD">
+            <option>YYYY-MM-DD</option>
+            <option>DD/MM/YYYY</option>
+            <option>MM/DD/YYYY</option>
+          </select>
+        </Field>
+      </div>
     </div>
   );
 }

@@ -1,18 +1,23 @@
+// Mock product catalog
 export const categories = [
-  { id: 1, name: 'Air Guns & Blow Guns', description: 'Air Guns & Blow Guns category', created: '3 Apr 2026' },
-  { id: 2, name: 'Air Preparation', description: 'Air Preparation category', created: '3 Apr 2026' },
-  { id: 3, name: 'Fittings & Connectors', description: 'Fittings & Connectors category', created: '3 Apr 2026' },
-  { id: 4, name: 'Nozzles & Tips', description: 'Nozzles & Tips category', created: '3 Apr 2026' },
-  { id: 5, name: 'Vacuum Generators', description: 'Vacuum Generators category', created: '3 Apr 2026' },
+  { id: 1, name: 'Subscriptions', slug: 'subscriptions', productsCount: 3, description: 'Recurring SaaS plans'      },
+  { id: 2, name: 'Add-ons',       slug: 'add-ons',       productsCount: 2, description: 'Optional capacity packs'   },
+  { id: 3, name: 'Services',      slug: 'services',      productsCount: 2, description: 'Onboarding & consulting'   },
+  { id: 4, name: 'Hardware',      slug: 'hardware',      productsCount: 1, description: 'Physical devices we ship'  },
 ];
 
 export const products = [
-  { id: 1, name: 'Industrial air gun', sku: 'BDD-AG-963', price: 900, status: 'Low Stock', category: 'Air Guns & Blow Guns', stock: 10 },
-  { id: 2, name: 'Standard Air Gun', sku: 'AG-001', price: 450, status: 'Active', category: 'Air Guns & Blow Guns', stock: 50 },
-  { id: 3, name: 'Heavy Duty Blow Gun', sku: 'BG-001', price: 650, status: 'Active', category: 'Air Guns & Blow Guns', stock: 30 },
-  { id: 4, name: 'Precision Nozzle 2mm', sku: 'NZ-001', price: 120, status: 'Active', category: 'Nozzles & Tips', stock: 100 },
-  { id: 5, name: 'Quick Connect Fitting', sku: 'FC-001', price: 75, status: 'Active', category: 'Fittings & Connectors', stock: 200 },
-  { id: 6, name: 'Vacuum Generator V1', sku: 'VG-001', price: 1200, status: 'Active', category: 'Vacuum Generators', stock: 15 },
-  { id: 7, name: 'Air Filter Regulator', sku: 'AP-001', price: 320, status: 'Active', category: 'Air Preparation', stock: 40 },
-  { id: 8, name: 'Mini Blow Gun', sku: 'BG-002', price: 220, status: 'Low Stock', category: 'Air Guns & Blow Guns', stock: 8 },
+  { id: 1, sku: 'SUB-STR',  name: 'Starter Plan',         category: 'Subscriptions', price: 1999,   stock: '∞', status: 'Active'   },
+  { id: 2, sku: 'SUB-GRW',  name: 'Growth Plan',          category: 'Subscriptions', price: 4999,   stock: '∞', status: 'Active'   },
+  { id: 3, sku: 'SUB-ENT',  name: 'Enterprise Plan',      category: 'Subscriptions', price: 19999,  stock: '∞', status: 'Active'   },
+  { id: 4, sku: 'ADD-USR',  name: 'Extra User Pack (10)', category: 'Add-ons',       price: 1500,   stock: '∞', status: 'Active'   },
+  { id: 5, sku: 'ADD-STR',  name: 'Storage Pack (50GB)',  category: 'Add-ons',       price: 800,    stock: '∞', status: 'Active'   },
+  { id: 6, sku: 'SVC-ONB',  name: 'Onboarding Service',   category: 'Services',      price: 25000,  stock: '∞', status: 'Active'   },
+  { id: 7, sku: 'SVC-CST',  name: 'Custom Integration',   category: 'Services',      price: 75000,  stock: '∞', status: 'Active'   },
+  { id: 8, sku: 'HW-SCN',   name: 'Barcode Scanner',      category: 'Hardware',      price: 4200,   stock: 24,  status: 'Inactive' },
 ];
+
+export const productStatusStyles = {
+  Active:   'bg-accent-50 text-accent-600 border-accent-100',
+  Inactive: 'bg-error-50  text-error-500  border-error-50',
+};

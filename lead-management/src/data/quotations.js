@@ -1,37 +1,20 @@
+// Mock quotations data
 export const quotations = [
-  {
-    id: 'Q-2847',
-    leadName: 'Meera Nair',
-    company: 'HealthPlus Clinics',
-    date: '2026-03-24',
-    validUntil: '2026-04-24',
-    status: 'Sent',
-    items: [
-      { description: 'Enterprise Plan - Annual', quantity: 1, rate: 240000, amount: 240000 },
-      { description: 'Additional Users (25)', quantity: 25, rate: 2000, amount: 50000 },
-      { description: 'Priority Support', quantity: 1, rate: 30000, amount: 30000 },
-    ],
-    subtotal: 320000,
-    tax: 57600,
-    total: 377600,
-  },
-  {
-    id: 'Q-2846',
-    leadName: 'Vikram Singh',
-    company: 'BuildFast Construction',
-    date: '2026-03-22',
-    validUntil: '2026-04-22',
-    status: 'Draft',
-    items: [
-      { description: 'Enterprise Plan - Annual', quantity: 1, rate: 240000, amount: 240000 },
-      { description: 'Additional Users (50)', quantity: 50, rate: 1800, amount: 90000 },
-      { description: 'Custom Integration', quantity: 1, rate: 80000, amount: 80000 },
-      { description: 'Training & Onboarding', quantity: 1, rate: 40000, amount: 40000 },
-    ],
-    subtotal: 450000,
-    tax: 81000,
-    total: 531000,
-  },
+  { id: 'Q-2841', client: 'TechNova Solutions', contact: 'Aarav Mehta',  amount: 125000, status: 'Draft',    issuedAt: '2026-04-02', validTill: '2026-04-30' },
+  { id: 'Q-2842', client: 'CloudOps Pvt Ltd',   contact: 'Sneha Iyer',   amount: 86000,  status: 'Sent',     issuedAt: '2026-04-03', validTill: '2026-05-03' },
+  { id: 'Q-2843', client: 'BlueWave Media',     contact: 'Vikram Singh', amount: 240000, status: 'Sent',     issuedAt: '2026-04-04', validTill: '2026-05-04' },
+  { id: 'Q-2844', client: 'Finlytics',          contact: 'Meera Nair',   amount: 310000, status: 'Accepted', issuedAt: '2026-04-05', validTill: '2026-05-05' },
+  { id: 'Q-2845', client: 'GreenLeaf Retail',   contact: 'Karan Bhalla', amount: 175000, status: 'Accepted', issuedAt: '2026-04-05', validTill: '2026-05-05' },
+  { id: 'Q-2846', client: 'Brightpath Edu',     contact: 'Anjali Verma', amount: 64000,  status: 'Rejected', issuedAt: '2026-04-06', validTill: '2026-05-06' },
+  { id: 'Q-2847', client: 'Orbit Logistics',    contact: 'Rahul Kapoor', amount: 198000, status: 'Sent',     issuedAt: '2026-04-07', validTill: '2026-05-07' },
+  { id: 'Q-2848', client: 'PixelForge Studio',  contact: 'Divya Reddy',  amount: 142000, status: 'Draft',    issuedAt: '2026-04-08', validTill: '2026-05-08' },
 ];
 
-export const quotationStatuses = ['Draft', 'Sent', 'Approved', 'Rejected', 'Expired'];
+export const quotationStatuses = ['Draft', 'Sent', 'Accepted', 'Rejected'];
+
+export const quotationStatusStyles = {
+  Draft:    'bg-surface-bg text-secondary-700 border-surface-border',
+  Sent:     'bg-primary-50 text-primary-700  border-primary-100',
+  Accepted: 'bg-accent-50  text-accent-600   border-accent-100',
+  Rejected: 'bg-error-50   text-error-500    border-error-50',
+};
