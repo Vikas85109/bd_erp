@@ -150,7 +150,7 @@ export default function Sidebar() {
       {/* Footer */}
       {!collapsed && (
         <div className="border-t border-surface-border px-4 py-3">
-          <p className="text-xs text-surface-muted">© 2024 BDD CRM</p>
+          <p className="text-xs text-surface-muted">© {new Date().getFullYear()} BDD CRM</p>
         </div>
       )}
     </aside>

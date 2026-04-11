@@ -63,6 +63,17 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  button,
+  a,
+  select,
+  [role="button"],
+  label[for],
+  input[type="checkbox"],
+  input[type="radio"],
+  summary {
+    cursor: pointer;
+  }
 }
 
 /* Scrollbar styling */

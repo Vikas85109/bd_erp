@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Search, RotateCcw, Save, MoreVertical, Eye, Pencil, Shield, Trash2, ChevronDown } from 'lucide-react';
-import { users as initialUsers, getInitials } from '../data/users';
+import { users as initialUsers, getInitials, ROLE_OPTIONS } from '../data/users';
 import Modal from '../components/Modal';
 import Toast from '../components/Toast';
 
@@ -15,7 +15,6 @@ const RESOURCES = [
 ];
 
 const ACTIONS = ['read', 'create', 'update', 'delete'];
-const ROLE_OPTIONS = ['EMPLOYEE', 'SUPER_ADMIN'];
 
 const defaultPerms = () => {
   const map = {};
@@ -74,7 +73,7 @@ export default function Permissions() {
   const isAll = (resKey) => ACTIONS.every((a) => perms[resKey][a]);
 
   const roleBadge = (role) =>
-    role === 'SUPER_ADMIN'
+    role === 'Super Admin'
       ? 'bg-primary-50 text-primary-600 border border-primary-100'
       : 'bg-surface-bg text-secondary-800 border border-surface-border';
 

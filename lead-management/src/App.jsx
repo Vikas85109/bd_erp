@@ -11,6 +11,7 @@ import Clients from './pages/Clients';
 import Products from './pages/Products';
 import Categories from './pages/Categories';
 import Users from './pages/Users';
+import EditUser from './pages/EditUser';
 import Permissions from './pages/Permissions';
 import Settings from './pages/Settings';
 
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/categories" element={<Categories />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/users/:id/edit" element={<EditUser />} />
           <Route path="/permissions" element={<Permissions />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
