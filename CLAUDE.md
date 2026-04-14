@@ -4,18 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-LeadFlow CRM — a frontend-only Lead Management & Sales Automation System built as a single-page React application. No backend; all data is structured dummy JSON in `/src/data/`.
+LeadFlow CRM — a frontend-only Lead Management & Sales Automation System built as a single-page React application. No backend; all data is structured dummy JSON in `/src/data/`. The app is the only thing in the repo — there is no server, no API layer, and no test suite.
 
 ## Commands
+
+All commands run from the `lead-management/` subdirectory (the repo root only contains `CLAUDE.md` and that one folder):
 
 ```bash
 cd lead-management
 npm install          # install dependencies
 npm run dev          # start dev server (http://localhost:5173)
 npm run build        # production build to dist/
-npm run lint         # ESLint
+npm run lint         # ESLint (flat config, eslint.config.js)
 npm run preview      # preview production build
 ```
+
+There is no test runner configured.
 
 ## Tech Stack
 
@@ -30,15 +34,19 @@ npm run preview      # preview production build
 
 All source code lives in `lead-management/src/`:
 
-- **`App.jsx`** — Router with all routes, wrapped in `MainLayout`
+- **`App.jsx`** — Router with all routes, every route nested inside a single `MainLayout` element route
 - **`layouts/MainLayout.jsx`** — Shell with collapsible `Sidebar` + glass `Navbar` + `<Outlet />`
-- **`pages/`** — One component per route: Dashboard, Leads, LeadDetails (`:id`), Quotations, AIAssistant, FollowUps, CRM
-- **`components/`** — Reusable UI: StatCard, DataTable, Badge, ChatBubble, TaskCard, KanbanColumn, Modal, Toast, SkeletonLoader
-- **`data/`** — Dummy data exports with helper functions (e.g., `getStatusColor()`, `getChatMessages(leadId)`, `getLeadFollowups(leadId)`)
+- **`pages/`** — One component per route: Dashboard, Leads, LeadDetails (`:id`), Quotations, AIAssistant, FollowUps, CRM, Clients, Products, Categories, Users, EditUser (`:id/edit`), Permissions, Settings
+- **`components/`** — Reusable UI: StatCard, DataTable, Badge, ChatBubble, TaskCard, KanbanColumn, Modal, Toast, SkeletonLoader, ComingSoon, Sidebar, Navbar
+- **`data/`** — Dummy data modules: `leads.js`, `chat.js`, `followups.js`, `quotations.js`, `crm.js`, `dashboard.js`, `products.js`, `users.js`. Each exports arrays/objects plus helper functions (e.g., `getStatusColor()`, `getChatMessages(leadId)`, `getLeadFollowups(leadId)`)
+- **`utils/`** — Currently empty; reserved for future shared helpers
 
 ### Routing
 
-All routes are nested inside `MainLayout`. The route `/leads/:id` renders `LeadDetails` which reads the `id` param and looks up data from `leads.js`, `chat.js`, and `followups.js`.
+All routes are nested inside `MainLayout` so the sidebar/navbar shell is shared. Dynamic routes:
+- `/leads/:id` → `LeadDetails` reads `id` and joins data from `leads.js`, `chat.js`, and `followups.js`
+- `/users/:id/edit` → `EditUser`
+- `/products/categories` → `Categories` (nested under Products in the sidebar grouping)
 
 ### Design System
 
