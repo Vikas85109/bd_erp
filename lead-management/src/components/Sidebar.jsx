@@ -14,6 +14,7 @@ import {
   Box,
   FolderTree,
   Sparkles,
+  CreditCard,
 } from 'lucide-react';
 
 const navItems = [
@@ -32,6 +33,7 @@ const navItems = [
   { to: '/users', icon: Users, label: 'Users' },
   { to: '/permissions', icon: ShieldCheck, label: 'Permissions' },
   { to: '/branding', icon: Sparkles, label: 'Branding' },
+  { to: '/billing', icon: CreditCard, label: 'Package' },
   { to: '/settings', icon: Settings, label: 'Settings' },
 ];
 

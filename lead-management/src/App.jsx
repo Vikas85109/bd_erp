@@ -15,6 +15,9 @@ import EditUser from './pages/EditUser';
 import Permissions from './pages/Permissions';
 import Settings from './pages/Settings';
 import Branding from './pages/Branding';
+import Billing from './pages/Billing';
+import BillingUpgrade from './pages/BillingUpgrade';
+import BillingCheckout from './pages/BillingCheckout';
 
 export default function App() {
   return (
@@ -35,6 +38,9 @@ export default function App() {
           <Route path="/users/:id/edit" element={<EditUser />} />
           <Route path="/permissions" element={<Permissions />} />
           <Route path="/branding" element={<Branding />} />
+          <Route path="/billing" element={<Billing />} />
+          <Route path="/billing/upgrade" element={<BillingUpgrade />} />
+          <Route path="/billing/checkout" element={<BillingCheckout />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
